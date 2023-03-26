@@ -85,12 +85,12 @@ void loop() {
   int value;
 
   // Hue
-  if (delta = 0){
+  if (delta == 0){
     hue = 0;
   }
   else if (Cmax == R){
-    int temp = ((G-B)/delta);
-    hue = 60 * temp%6;
+    float temp = ((G-B)/delta);
+    hue = 60 * (temp - int(temp));
   }
   else if (Cmax == G){
     hue = 60 * (((B-R)/delta)+2);
@@ -100,7 +100,7 @@ void loop() {
   }
 
   // Saturation
-  if (Cmax = 0){
+  if (Cmax == 0){
     saturation = 0;
   }
   else{
@@ -110,11 +110,12 @@ void loop() {
   // Value
   value = Cmax * 100;
 
-  if (delta < .05){
-    if (value >= .95){
+  Serial.println(String(hue) + " " + String(value) + " " + String(saturation));
+  if (saturation < 5){
+    if (value >= 95){
       Serial.println("WHITE");
     }
-    else if (value <= .05){
+    else if (value <= 5){
       Serial.println("BLACK");
     }
     else{
@@ -125,19 +126,19 @@ void loop() {
     if (hue <= 30 || hue > 350){
       Serial.println("RED");
     }
-    else if (hue <= 70 || hue > 30){
+    else if (hue <= 70 && hue > 30){
       Serial.println("ORANGE");
     }
-    else if (hue <= 100 || hue > 70){
+    else if (hue <= 100 && hue > 70){
       Serial.println("YELLOW");
     }
-    else if (hue <= 200 || hue > 100){
+    else if (hue <= 200 && hue > 100){
       Serial.println("GREEN");
     }
-    else if (hue <= 280 || hue > 200){
+    else if (hue <= 280 && hue > 200){
       Serial.println("BLUE");
     }
-    else if (hue <= 320 || hue > 280){
+    else if (hue <= 320 && hue > 280){
       Serial.println("PURPLE");
     }
     else{
